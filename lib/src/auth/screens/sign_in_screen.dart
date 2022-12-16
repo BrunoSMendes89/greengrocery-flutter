@@ -1,6 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/auth/components/custom_text_field.dart';
+import 'package:greengrocer/src/auth/screens/home.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 
 import 'sign_up_screen.dart';
@@ -82,6 +83,7 @@ class SignInScreen extends StatelessWidget {
                     label: 'Senha',
                     isSecret: true,
                   ),
+
                   //Entrar
                   SizedBox(
                       height: 50,
@@ -89,11 +91,18 @@ class SignInScreen extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(18))),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) {
+                                return Home();
+                              }),
+                            );
+                          },
                           child: const Text(
                             'Entrar',
                             style: TextStyle(fontSize: 18),
                           ))),
+
                   //Esqueceu a Senha
                   Align(
                     alignment: Alignment.center,
