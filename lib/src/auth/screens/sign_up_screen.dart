@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:greengrocer/src/auth/components/custom_text_field.dart';
 
 import '../../config/custom_colors.dart';
+import '../../services/validator.dart';
 
 class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({super.key});
+  SignUpScreen({super.key});
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -40,39 +43,49 @@ class SignUpScreen extends StatelessWidget {
                     ),
                   ),
                   //Form
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      const CustomTextField(
-                        icon: Icons.person,
-                        label: 'Nome',
-                      ),
-                      const CustomTextField(
-                        icon: Icons.email,
-                        label: 'Email',
-                      ),
-                      const CustomTextField(
-                        icon: Icons.lock,
-                        label: 'Senha',
-                        isSecret: true,
-                      ),
-                      //Create Button
-                      SizedBox(
-                        height: 50,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        const CustomTextField(
+                                                    icon: Icons.person,
+                          label: 'Nome',
+                          validator: nomeValidator,
+                        ),
+                        const CustomTextField(
+                          icon: Icons.email,
+                          label: 'Email',
+                          validator: emailValidator,
+                        ),
+                        const CustomTextField(
+                          icon: Icons.lock,
+                          label: 'Senha',
+                          isSecret: true,
+                          textInputType: TextInputType.number,
+                          validator: passwordValidator,
+                        ),
+                        //Create Button
+                        SizedBox(
+                          height: 50,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18),
+                              ),
+                            ),
+                            onPressed: () {
+                               _formKey.currentState!.validate();
+
+                            },
+                            child: const Text(
+                              'Cadastrar Usuário',
+                              style: TextStyle(fontSize: 18),
                             ),
                           ),
-                          onPressed: () {},
-                          child: const Text(
-                            'Cadastrar Usuário',
-                            style: TextStyle(fontSize: 18),
-                          ),
-                        ),
-                      )
-                    ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ]),

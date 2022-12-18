@@ -12,7 +12,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  Future<Pessoas> fetchPessoas() async {
+  Future<List<Pessoas>> fetchPessoas() async {
     PessoasService service = PessoasService();
     return service.getPessoas();
   }
