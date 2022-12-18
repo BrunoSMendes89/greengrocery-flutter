@@ -1,13 +1,19 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:greengrocer/src/auth/components/custom_text_field.dart';
-import 'package:greengrocer/src/auth/screens/home.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 
+import '../../pages_routes/app_pages.dart';
+import '../../services/validator.dart';
 import 'sign_up_screen.dart';
 
 class SignInScreen extends StatelessWidget {
-  const SignInScreen({super.key});
+  SignInScreen({super.key});
+
+  final _formKey = GlobalKey<FormState>();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -68,90 +74,100 @@ class SignInScreen extends StatelessWidget {
                   color: Colors.white,
                   borderRadius:
                       BorderRadius.vertical(top: Radius.circular(45))),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  //Email
-                  const CustomTextField(
-                    icon: Icons.email,
-                    label: 'Email',
-                  ),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    //Email
+                    CustomTextField(
+                      controller: emailController,
+                      icon: Icons.email,
+                      label: 'Email',
+                      isSecret: false,
+                      textInputType: TextInputType.emailAddress,
+                      validator: emailValidator,
+                    ),
 
-                  //Senha
-                  const CustomTextField(
-                    icon: Icons.lock,
-                    label: 'Senha',
-                    isSecret: true,
-                  ),
+                    //Senha
+                    CustomTextField(
+                      controller: passwordController,
+                      icon: Icons.lock,
+                      label: 'Senha',
+                      isSecret: true,
+                      textInputType: TextInputType.number,
+                      validator: passwordValidator,
+                    ),
 
-                  //Entrar
-                  SizedBox(
+                    //Entrar
+                    SizedBox(
                       height: 50,
                       child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18))),
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) {
-                                return const Home();
-                              }),
-                            );
-                          },
-                          child: const Text(
-                            'Entrar',
-                            style: TextStyle(fontSize: 18),
-                          ))),
-
-                  //Divisor
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Divider(
-                            color: Colors.grey.withAlpha(90),
-                            thickness: 2,
-                          ),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 15),
-                          child: Text('Ou'),
-                        ),
-                        Expanded(
-                          child: Divider(
-                            color: Colors.grey.withAlpha(90),
-                            thickness: 2,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  //New User Button
-                  SizedBox(
-                    height: 50,
-                    child: OutlinedButton(
-                        style: OutlinedButton.styleFrom(
+                        style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18)),
-                          side: const BorderSide(
-                            width: 2,
-                            color: Colors.green,
+                            borderRadius: BorderRadius.circular(18),
                           ),
                         ),
                         onPressed: () {
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(builder: (context) {
-                            return const SignUpScreen();
-                          }));
+                          Get.toNamed(PagesRoutes.pagelista);
                         },
                         child: const Text(
-                          'Criar conta',
+                          'Entrar',
                           style: TextStyle(fontSize: 18),
-                        )),
-                  )
-                ],
+                        ),
+                      ),
+                    ),
+
+                    //Divisor
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Divider(
+                              color: Colors.grey.withAlpha(90),
+                              thickness: 2,
+                            ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 15),
+                            child: Text('Ou'),
+                          ),
+                          Expanded(
+                            child: Divider(
+                              color: Colors.grey.withAlpha(90),
+                              thickness: 2,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    //New User Button
+                    SizedBox(
+                      height: 50,
+                      child: OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18)),
+                            side: const BorderSide(
+                              width: 2,
+                              color: Colors.green,
+                            ),
+                          ),
+                          onPressed: () {
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (context) {
+                              return const SignUpScreen();
+                            }));
+                          },
+                          child: const Text(
+                            'Criar conta',
+                            style: TextStyle(fontSize: 18),
+                          )),
+                    )
+                  ],
+                ),
               ),
             ),
           ]),
