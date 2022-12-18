@@ -94,7 +94,7 @@ class SignInScreen extends StatelessWidget {
                           onPressed: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(builder: (context) {
-                                return Home();
+                                return const Home();
                               }),
                             );
                           },
@@ -102,19 +102,6 @@ class SignInScreen extends StatelessWidget {
                             'Entrar',
                             style: TextStyle(fontSize: 18),
                           ))),
-
-                  //Esqueceu a Senha
-                  Align(
-                    alignment: Alignment.center,
-                    child: TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'Esqueceu a senha?',
-                          style: TextStyle(
-                            color: CustomColors.customContrastColor,
-                          ),
-                        )),
-                  ),
 
                   //Divisor
                   Padding(
@@ -156,7 +143,7 @@ class SignInScreen extends StatelessWidget {
                         onPressed: () {
                           Navigator.of(context)
                               .push(MaterialPageRoute(builder: (context) {
-                            return SignUpScreen();
+                            return const SignUpScreen();
                           }));
                         },
                         child: const Text(
