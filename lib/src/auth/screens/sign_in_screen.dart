@@ -1,13 +1,10 @@
 import 'dart:developer';
-
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:greengrocer/src/auth/components/custom_text_field.dart';
 import 'package:greengrocer/src/auth/screens/listapessoas.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
-
-import '../../pages_routes/app_pages.dart';
+import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 import '../../services/validator.dart';
 import 'sign_up_screen.dart';
 
@@ -111,17 +108,35 @@ class SignInScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(18),
                           ),
                         ),
-                        onPressed: () {
+                        onPressed: () async {
                           FocusScope.of(context).unfocus();
                           String email = emailController.text;
                           String password = passwordController.text;
                           log('Email: $email - Senha: $password');
                           if (_formKey.currentState!.validate()) {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) {
-                                return const Home();
-                              },
-                            ));
+                            QueryBuilder<ParseObject> login = QueryBuilder<
+                                ParseObject>(ParseObject('usuario'))
+                              ..whereEqualTo('email', email);
+                            final ParseResponse apiResponse =
+                                await login.query();
+
+                            if (apiResponse.success &&
+                                apiResponse.results != null) {
+                              if (apiResponse.results!.first
+                                      .get<String>('senha') ==
+                                  password) {
+                                // ignore: use_build_context_synchronously
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) {
+                                    return const Home();
+                                  },
+                                ));
+                              } else {
+                                const DialogExample();
+                              }
+                            } else {
+                              const DialogExample();
+                            }
                           }
                         },
                         child: const Text(
@@ -188,4 +203,53 @@ class SignInScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+class DialogExample extends StatelessWidget {
+  const DialogExample({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('showDialog Sample')),
+      body: Center(
+        child: OutlinedButton(
+          onPressed: () => _dialogBuilder(context),
+          child: const Text('Open Dialog'),
+        ),
+      ),
+    );
+  }
+}
+
+Future<void> _dialogBuilder(BuildContext context) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Login'),
+        content: const Text('Senha ou email invalido!'),
+        actions: <Widget>[
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: Theme.of(context).textTheme.labelLarge,
+            ),
+            child: const Text('Disable'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: Theme.of(context).textTheme.labelLarge,
+            ),
+            child: const Text('Enable'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }
