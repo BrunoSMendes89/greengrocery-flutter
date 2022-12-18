@@ -14,6 +14,6 @@ abstract class AppPages {
 
 abstract class PagesRoutes {
   static const String pagelista = '/lista';
-  static const String pagecadastro = '/casdastro';
+  static const String pagecadastro = '/cadastro';
   static const String pagehome = '/home';
 }
