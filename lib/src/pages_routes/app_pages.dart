@@ -7,7 +7,7 @@ import '../auth/screens/sign_in_screen.dart';
 abstract class AppPages {
   static final pages = <GetPage>[
     GetPage(name: PagesRoutes.pagehome, page: () =>   SignInScreen()),
-    GetPage(name: PagesRoutes.pagecadastro, page: () => const SignUpScreen()),
+    GetPage(name: PagesRoutes.pagecadastro, page: () =>  SignUpScreen()),
     GetPage(name: PagesRoutes.pagelista, page: () => const Home())
   ];
 }

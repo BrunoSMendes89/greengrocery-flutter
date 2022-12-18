@@ -131,12 +131,8 @@ class SignInScreen extends StatelessWidget {
                                     return const Home();
                                   },
                                 ));
-                              } else {
-                                const DialogExample();
-                              }
-                            } else {
-                              const DialogExample();
-                            }
+                              } 
+                            } 
                           }
                         },
                         child: const Text(
@@ -186,7 +182,7 @@ class SignInScreen extends StatelessWidget {
                           onPressed: () {
                             Navigator.of(context)
                                 .push(MaterialPageRoute(builder: (context) {
-                              return const SignUpScreen();
+                              return  SignUpScreen();
                             }));
                           },
                           child: const Text(
