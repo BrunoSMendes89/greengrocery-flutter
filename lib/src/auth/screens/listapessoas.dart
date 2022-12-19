@@ -1,6 +1,8 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
 
-import '../../config/custom_colors.dart';
+import 'package:flutter/material.dart';
+import 'package:greengrocer/src/services/api.dart';
+import '../models/pessoas.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -10,49 +12,73 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  @override
+  build(BuildContext context) {
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Cadastro de usuários',
+      home: BuilderListView(
+      ),
+      color: Colors.green,
+    );
+  }
+}
+
+class BuilderListView extends StatefulWidget {
+  const BuilderListView({super.key});
+
+  @override
+  State<BuilderListView> createState() => _BuilderListViewState();
+}
+
+class _BuilderListViewState extends State<BuilderListView>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  var users = <Pessoas>[];
+
+  _getUsers() {
+    API.getUsers().then((response) {
+      setState(() {
+        Iterable lista = json.decode(response.body);
+        users = lista.map((model) => Pessoas.fromJson(model)).toList();
+      });
+    });
+  }
+
+  _BuilderListViewState() {
+    _getUsers();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
     return Scaffold(
-      backgroundColor: CustomColors.customSwatchColor,
-      body: SingleChildScrollView(
-        child: SizedBox(
-          height: size.height,
-          width: size.width,
-          child: Stack(
-            children: [
-              const Expanded(
-                child: Center(
-                  child: Text(
-                    'Pessoas',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 35,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                top: 10,
-                left: 10,
-                child: SafeArea(
-                  child: IconButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    icon: const Icon(
-                      Icons.arrow_back_ios,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
+      appBar: AppBar(
+        title: const Text('Cadastro de usuários'),
       ),
+      body: listausuarios(),
     );
+  }
+
+  listausuarios() {
+    return ListView.builder(
+        itemCount: users.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(users[index].nome.toString()),
+          );
+        });
   }
 }
