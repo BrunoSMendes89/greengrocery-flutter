@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 import 'package:greengrocer/src/auth/screens/sign_in_screen.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
@@ -11,6 +12,7 @@ Future<void> main() async {
   await Parse().initialize(keyApplicationId, keyParseServerUrl,
       clientKey: keyClientKey, autoSendSessionId: true);
 
+
   if (kDebugMode) {
     print('done');
   }
@@ -18,17 +20,20 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
+
+
   const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Lista de Usuários',
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
       debugShowCheckedModeBanner: false,
+
       home: SignInScreen(),
     );
   }
@@ -36,6 +41,7 @@ class MyApp extends StatelessWidget {
 
 Future<Map<String, dynamic>> getLogin(String email) async {
   QueryBuilder<ParseObject> queryPerson =
+
       QueryBuilder<ParseObject>(ParseObject('usuario'))
         ..whereEqualTo('email', email);
   final ParseResponse apiResponse = await queryPerson.query();

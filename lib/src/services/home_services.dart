@@ -4,6 +4,7 @@ class PessoasService {
   List<Pessoas> getPessoas() {
     //final response = Pessoas('Bruno', 'email@teste', 'senha não disponível');
     List<Pessoas> myLista = [
+
       Pessoas("Wagner Garnizet", "wagner@teste.com", "1234"),
       Pessoas("Bruno Mendes", "bruno@teste.com", "1234"),
       Pessoas("Mathues Rodrigues", "matheus@teste.com", "1234")
@@ -17,5 +18,6 @@ class PessoasService {
       return login.email.contains(email);
     });
     return null;
+
   }
 }

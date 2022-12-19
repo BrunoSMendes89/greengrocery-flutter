@@ -4,13 +4,16 @@ import 'package:greengrocer/src/services/validator.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
 import '../../config/custom_colors.dart';
+import '../../services/validator.dart';
 
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({super.key});
+
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final nomeController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +54,7 @@ class SignUpScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
+
                         CustomTextField(
                           controller: nomeController,
                           icon: Icons.person,
@@ -67,6 +71,7 @@ class SignUpScreen extends StatelessWidget {
                         ),
                         CustomTextField(
                           controller: passwordController,
+
                           icon: Icons.lock,
                           label: 'Senha',
                           isSecret: true,
@@ -82,6 +87,7 @@ class SignUpScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(18),
                               ),
                             ),
+
                             onPressed: () async {
                               FocusScope.of(context).unfocus();
                               String email = emailController.text;
@@ -96,6 +102,7 @@ class SignUpScreen extends StatelessWidget {
 
                               // ignore: use_build_context_synchronously
                               Navigator.of(context).pop();
+
                             },
                             child: const Text(
                               'Cadastrar Usuário',

@@ -1,7 +1,9 @@
 import 'dart:developer';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:greengrocer/src/auth/components/custom_text_field.dart';
+
 import 'package:greengrocer/src/auth/screens/listapessoas.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
@@ -88,6 +90,7 @@ class SignInScreen extends StatelessWidget {
                       textInputType: TextInputType.emailAddress,
                       validator: emailValidator,
                     ),
+
 
                     //Senha
                     CustomTextField(
@@ -184,6 +187,7 @@ class SignInScreen extends StatelessWidget {
                                 .push(MaterialPageRoute(builder: (context) {
                               return  SignUpScreen();
                             }));
+
                           },
                           child: const Text(
                             'Criar conta',
