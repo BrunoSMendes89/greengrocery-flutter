@@ -1,23 +1,16 @@
-import 'package:greengrocer/src/auth/models/pessoas.dart';
+import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
 class PessoasService {
-  List<Pessoas> getPessoas() {
-    //final response = Pessoas('Bruno', 'email@teste', 'senha não disponível');
-    List<Pessoas> myLista = [
 
-      Pessoas("Wagner Garnizet", "wagner@teste.com", "1234"),
-      Pessoas("Bruno Mendes", "bruno@teste.com", "1234"),
-      Pessoas("Mathues Rodrigues", "matheus@teste.com", "1234")
-    ];
-    return myLista;
+Future<List<ParseObject>> listaPessoas() async {
+  QueryBuilder<ParseObject> queryPessoas =
+      QueryBuilder<ParseObject>(ParseObject('usuario'));
+  final ParseResponse apiResponse = await queryPessoas.query();
+  if (apiResponse.success && apiResponse.results != null) {
+    return apiResponse.results as List<ParseObject>;
+  } else {
+    return [];
   }
+}
 
-  List<Pessoas>? getLogin(String email) {
-    List<Pessoas> pessoa = getPessoas();
-    pessoa.retainWhere((login) {
-      return login.email.contains(email);
-    });
-    return null;
-
-  }
 }

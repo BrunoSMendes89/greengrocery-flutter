@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:greengrocer/src/auth/components/custom_text_field.dart';
 import 'package:greengrocer/src/services/validator.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
-
 import '../../config/custom_colors.dart';
-import '../../services/validator.dart';
+
 
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({super.key});

@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 import 'package:greengrocer/src/auth/screens/sign_in_screen.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.green,
       ),
       debugShowCheckedModeBanner: false,
-
+        
       home: SignInScreen(),
     );
   }

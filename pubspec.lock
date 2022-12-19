@@ -114,9 +114,7 @@ packages:
     source: hosted
     version: "0.7.8"
   dio:
-
     dependency: transitive
-
     description:
       name: dio
       url: "https://pub.dartlang.org"
@@ -173,7 +171,7 @@ packages:
     source: hosted
     version: "4.6.5"
   http:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: http
       url: "https://pub.dartlang.org"
