@@ -27,3 +27,4 @@ String? nomeValidator(String? nome) {
   if (nomes.length ==1) return 'Digite seu nome e sobrenome!';
   return null;
 }
+

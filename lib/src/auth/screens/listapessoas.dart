@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:greengrocer/src/auth/models/pessoas.dart';
-import 'package:greengrocer/src/services/home_services.dart';
 
 import '../../config/custom_colors.dart';
 
@@ -12,10 +10,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  Future<List<Pessoas>> fetchPessoas() async {
-    PessoasService service = PessoasService();
-    return service.getPessoas();
-  }
 
   @override
   Widget build(BuildContext context) {

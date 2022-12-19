@@ -6,14 +6,17 @@ import '../auth/screens/sign_in_screen.dart';
 
 abstract class AppPages {
   static final pages = <GetPage>[
-    GetPage(name: PagesRoutes.pagehome, page: () =>  SignInScreen()),
-    GetPage(name: PagesRoutes.pagecadastro, page: () => SignUpScreen()),
+
+    GetPage(name: PagesRoutes.pagehome, page: () =>   SignInScreen()),
+    GetPage(name: PagesRoutes.pagecadastro, page: () =>  SignUpScreen()),
     GetPage(name: PagesRoutes.pagelista, page: () => const Home())
   ];
 }
 
 abstract class PagesRoutes {
   static const String pagelista = '/lista';
-  static const String pagecadastro = '/casdastro';
+
+  static const String pagecadastro = '/cadastro';
   static const String pagehome = '/home';
 }
+
