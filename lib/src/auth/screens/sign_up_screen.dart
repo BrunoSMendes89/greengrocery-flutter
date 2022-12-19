@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/auth/components/custom_text_field.dart';
 import 'package:greengrocer/src/services/validator.dart';
+import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
 import '../../config/custom_colors.dart';
 
@@ -50,19 +51,22 @@ class SignUpScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        const CustomTextField(
+                        CustomTextField(
+                          controller: nomeController,
                           icon: Icons.person,
                           label: 'Nome',
                           textInputType: TextInputType.text,
                           validator: nomeValidator,
                         ),
-                        const CustomTextField(
+                        CustomTextField(
+                          controller: emailController,
                           icon: Icons.email,
                           label: 'Email',
                           textInputType: TextInputType.emailAddress,
                           validator: emailValidator,
                         ),
-                        const CustomTextField(
+                        CustomTextField(
+                          controller: passwordController,
                           icon: Icons.lock,
                           label: 'Senha',
                           isSecret: true,
@@ -78,12 +82,20 @@ class SignUpScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(18),
                               ),
                             ),
-                            onPressed: () {
+                            onPressed: () async {
                               FocusScope.of(context).unfocus();
                               String email = emailController.text;
                               String password = passwordController.text;
                               String nome = nomeController.text;
-                              print("$nome - $email - $password");
+                              //print("$nome - $email - $password");
+                              var cadastraruser = ParseObject('usuario')
+                                ..set('nome', nome)
+                                ..set('email', email)
+                                ..set('senha', password);
+                              await cadastraruser.save();
+
+                              // ignore: use_build_context_synchronously
+                              Navigator.of(context).pop();
                             },
                             child: const Text(
                               'Cadastrar Usuário',
